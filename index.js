@@ -1,37 +1,48 @@
 const express = require('express')
 const app = express()
-const bodyParser = require('body-parser')
+const bodypanser = require('body-parser') 
+const mongoose = require('mongoose')
 
-app.use(bodyParser.json ({
-    extended: true,
-    limit:'20mb'
+mongoose.connect('mongodb://localhost:27017/latihan',{
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+}).then(() =>{
+  console.log('berhasil connect ke database')
+}).catch((e) =>{
+  console.log(e)
+  console.log('gagal connect ke database')
+})
+
+app.use(bodypanser.json({
+    extends: true,
+    limit: '20mb' 
 }))
 
-app.use(bodyParser.urlencoded ({
-    extended: true,
+app.use(bodypanser.urlencoded({
+    extends: true,
     limit: '20mb'
 }))
- 
+
 app.get('/', (req, res) => {
   res.send('<h1>tuhan yang terbaik</h1>')
 })
-
-app.get('/profile/:username/:id', (req, res) => {
-    console.log(req.params)
-    res.send('Username Anda ' + req.params.username)
-})
-
+//req param
 app.get('/daerah/:namadaerah/:id', (req, res) => {
-    const namaDaerah = req.params.namadaerah
-    const idDaerah = req.params.id
-    res.send('Anda di ' + namaDaerah + 'id daerah = ' + namaDaerah)
+    const namadaerah = req.params.namadaerah
+    const iddaerah = req.params.id
+  res.send('Anda Di : ' + namadaerah + ' Id Daerah : ' + iddaerah)  
 })
+ //req buddy
+//app.post('/register', (req, res) =>{
+//res.json(req.body)
+//console.log(req.body)
+//})
+//const useRoutes = require('.')
+app.use('/user/', require('./routes/User'))
 
-app.post('/register', (req,res) => {
-    console.log(req.body)
-    res.json(req.body)
-})
 
 app.listen(3000, () => {
-    console. log('Server Started')
+    console.log('server Startet')
 })
