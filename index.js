@@ -41,6 +41,7 @@ app.get('/daerah/:namadaerah/:id', (req, res) => {
 //})
 //const useRoutes = require('.')
 app.use('/user/', require('./routes/User'))
+app.use('/user/', require('./routes/kegiatan'))
 
 
 app.listen(3000, () => {
