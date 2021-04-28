@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const bodypanser = require('body-parser') 
+const bodyparser = require('body-parser') 
 const mongoose = require('mongoose')
 
 mongoose.connect('mongodb://localhost:27017/latihan',{
@@ -15,12 +15,12 @@ mongoose.connect('mongodb://localhost:27017/latihan',{
   console.log('gagal connect ke database')
 })
 
-app.use(bodypanser.json({
+app.use(bodyparser.json({
     extends: true,
     limit: '20mb' 
 }))
 
-app.use(bodypanser.urlencoded({
+app.use(bodyparser.urlencoded({
     extends: true,
     limit: '20mb'
 }))
